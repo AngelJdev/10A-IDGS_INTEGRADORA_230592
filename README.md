@@ -16,5 +16,3 @@ Abre el archivo en un navegador para revisar los componentes, limites de confian
 El diagrama se publica con GitHub Pages en:
 
 https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/
-
-Si Pages aun no esta habilitado, entra a **Settings > Pages** en GitHub y selecciona **GitHub Actions** como fuente. El workflow `Deploy interactive architecture` publicara la vista al terminar.
