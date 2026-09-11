@@ -1,0 +1,16 @@
+{
+  "name": "mobile-architecture",
+  "type": "architecture-delivery",
+  "version": "1.0.0",
+  "source": "mobile-architecture.html",
+  "artifacts": [
+    "mobile-architecture.html",
+    "mobile-architecture.json",
+    "mobile-architecture.visual-check.json",
+    "mobile-architecture.visual-check.1440x900.dark.png",
+    "mobile-architecture.visual-check.1440x900.light.png",
+    "mobile-architecture.visual-check.2048x1320.dark.png",
+    "mobile-architecture.visual-check.2048x1320.light.png"
+  ],
+  "status": "complete"
+}
