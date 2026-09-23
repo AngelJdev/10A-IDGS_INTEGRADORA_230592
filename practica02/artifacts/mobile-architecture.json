@@ -1,0 +1,32 @@
+{
+  "name": "Mobile Platform Architecture",
+  "description": "Initial deployment and integration view",
+  "nodes": [
+    { "id": "mobile", "type": "client", "label": "Flutter Mobile App", "technology": "iOS / Android" },
+    { "id": "keycloak", "type": "authentication", "label": "Keycloak", "technology": "Identity, login & tokens" },
+    { "id": "api", "type": "api", "label": "FastAPI REST API", "technology": "Business logic & API gateway" },
+    { "id": "postgres", "type": "data", "label": "PostgreSQL", "technology": "Relational records" },
+    { "id": "mongo", "type": "data", "label": "MongoDB", "technology": "Document data" },
+    { "id": "maps", "type": "external", "label": "Leaflet / Maps Service", "technology": "Tiles, maps & geospatial UI" },
+    { "id": "docker", "type": "development", "label": "Docker", "technology": "Container runtime" },
+    { "id": "compose", "type": "development", "label": "Docker Compose", "technology": "Local service orchestration" },
+    { "id": "git", "type": "development", "label": "Git", "technology": "Local version control" },
+    { "id": "github", "type": "development", "label": "GitHub", "technology": "Remote repository" }
+  ],
+  "flows": [
+    { "from": "mobile", "to": "keycloak", "category": "authentication", "protocol": "OIDC / OAuth 2.0" },
+    { "from": "mobile", "to": "api", "category": "api", "protocol": "HTTPS REST + Bearer JWT" },
+    { "from": "keycloak", "to": "api", "category": "authentication", "protocol": "JWT validation / JWKS" },
+    { "from": "api", "to": "postgres", "category": "data", "protocol": "SQL / ORM" },
+    { "from": "api", "to": "mongo", "category": "data", "protocol": "Document queries" },
+    { "from": "api", "to": "maps", "category": "external", "protocol": "Map tiles / geocoding (HTTPS)" },
+    { "from": "docker", "to": "compose", "category": "development", "protocol": "container runtime" },
+    { "from": "compose", "to": "git", "category": "development", "protocol": "version control" },
+    { "from": "git", "to": "github", "category": "development", "protocol": "remote repository" }
+  ],
+  "trustBoundaries": [
+    "PUBLIC / INTERNET TRUST BOUNDARY",
+    "TRUSTED APPLICATION NETWORK",
+    "DATA SECURITY ZONE"
+  ]
+}
