@@ -6,15 +6,27 @@
   <title>Modelo Canvas - Trello</title>
   <style>
     :root { --ink:#17212b; --muted:#53616d; --paper:#f4f0e8; --card:#fffdf8; --blue:#20639b; --teal:#16817a; --gold:#e4a11b; --line:#d8d1c5; }
+    body.dark { --ink:#e9eef5; --muted:#a7b5c4; --paper:#07111f; --card:#0d1b2d; --line:#243b55; }
     * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.45 Georgia, serif; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.45 Georgia, serif; transition:background .25s,color .25s; }
     header { max-width:1200px; margin:auto; padding:44px 24px 24px; border-bottom:3px solid var(--ink); }
     .eyebrow { color:var(--blue); font:700 12px/1.2 Arial, sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
     h1 { margin:8px 0 4px; font-size:clamp(2rem,5vw,4rem); line-height:1; }
     header p { max-width:680px; margin:14px 0 0; color:var(--muted); font:16px/1.5 Arial, sans-serif; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+    button, input { border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--ink); padding:10px 13px; font:600 13px Arial, sans-serif; }
+    button { cursor:pointer; }
+    button:hover, button.active { border-color:var(--teal); box-shadow:0 0 0 2px color-mix(in srgb, var(--teal) 22%, transparent); }
+    .toolbar button:first-child { background:var(--ink); color:var(--paper); }
+    .controls { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+    .controls input { min-width:260px; flex:1; }
+    .counter { color:var(--muted); font:12px Arial, sans-serif; }
     main { max-width:1200px; margin:28px auto 60px; padding:0 24px; }
     .canvas { display:grid; grid-template-columns:repeat(5, 1fr); grid-template-rows:repeat(2, minmax(220px, auto)); gap:12px; }
-    section { background:var(--card); border:1px solid var(--line); border-top:6px solid var(--blue); padding:18px; box-shadow:5px 5px 0 rgba(23,33,43,.08); }
+    section { background:var(--card); border:1px solid var(--line); border-top:6px solid var(--blue); padding:18px; box-shadow:5px 5px 0 rgba(23,33,43,.08); cursor:pointer; transition:transform .2s, opacity .2s, box-shadow .2s; }
+    section:hover, section.selected { transform:translateY(-4px); box-shadow:0 10px 24px rgba(23,33,43,.18); }
+    section.dimmed { opacity:.22; transform:none; }
+    section.selected { outline:2px solid var(--teal); }
     section:nth-child(2), section:nth-child(7) { border-top-color:var(--teal); }
     section:nth-child(3), section:nth-child(8) { border-top-color:var(--gold); }
     h2 { margin:0 0 13px; font:700 17px/1.15 Arial, sans-serif; }
@@ -29,7 +41,11 @@
     .channels { grid-column:2; grid-row:2; }
     .costs { grid-column:3 / span 2; grid-row:2; }
     .revenue { grid-column:5; grid-row:2; }
+    .detail { min-height:32px; margin-top:16px; padding:12px 14px; border-left:4px solid var(--teal); color:var(--muted); background:var(--card); font:14px Arial, sans-serif; }
     footer { margin-top:20px; color:var(--muted); font:13px Arial, sans-serif; }
+    body.presentation header p, body.presentation footer, body.presentation .controls { display:none; }
+    body.presentation header { padding-top:24px; }
+    body.presentation main { max-width:1400px; }
     @media (max-width:800px) { .canvas { grid-template-columns:1fr 1fr; grid-template-rows:auto; } section, .partners, .activities, .value, .relationships, .segments, .resources, .channels, .costs, .revenue { grid-column:auto; grid-row:auto; } .value { grid-column:span 2; } }
     @media (max-width:480px) { main, header { padding-left:16px; padding-right:16px; } .canvas { grid-template-columns:1fr; } .value { grid-column:auto; } }
   </style>
@@ -39,9 +55,24 @@
     <div class="eyebrow">Practica 03 · Archify · 10 firmas</div>
     <h1>Modelo Canvas de Trello</h1>
     <p>Una lectura de negocio para una herramienta multiplataforma de organizacion de tareas y proyectos.</p>
+    <div class="toolbar" aria-label="Controles del modelo">
+      <button id="themeButton" type="button">Modo oscuro</button>
+      <button id="presentButton" type="button">Presentar</button>
+      <button id="downloadButton" type="button">Exportar JSON</button>
+    </div>
   </header>
   <main>
+    <div class="controls">
+      <input id="searchInput" type="search" placeholder="Buscar en el Canvas..." aria-label="Buscar en el Canvas">
+      <div class="views" aria-label="Vistas guiadas">
+        <button class="viewButton active" data-view="all" type="button">Todos</button>
+        <button class="viewButton" data-view="value" type="button">Flujo de valor</button>
+        <button class="viewButton" data-view="customer" type="button">Entrega al cliente</button>
+      </div>
+      <span class="counter" id="counter">Cargando...</span>
+    </div>
     <div class="canvas" id="canvas"></div>
+    <div class="detail" id="detail" aria-live="polite">Selecciona un bloque para explorar sus elementos.</div>
     <footer>Modelo revisado: nueve bloques, duplicados eliminados y redaccion mejorada.</footer>
   </main>
   <script>
@@ -51,14 +82,58 @@
       customerSegments: ['Segmentos de clientes', 'segments'], keyResources: ['Recursos clave', 'resources'],
       channels: ['Canales', 'channels'], costStructure: ['Estructura de costos', 'costs'], revenueStreams: ['Fuentes de ingresos', 'revenue']
     };
-    fetch('modelo-canvas.json').then(response => response.json()).then(model => {
+    const viewGroups = { value: ['valuePropositions', 'keyResources', 'keyActivities'], customer: ['channels', 'customerRelationships', 'customerSegments'] };
+    let model;
+    let cards = [];
+    fetch('modelo-canvas.json').then(response => response.json()).then(data => {
+      model = data;
       const canvas = document.getElementById('canvas');
       Object.entries(labels).forEach(([key, [title, className]]) => {
         const section = document.createElement('section');
         section.className = className;
+        section.dataset.key = key;
         section.innerHTML = `<h2>${title}</h2><ul>${model.canvas[key].map(item => `<li>${item}</li>`).join('')}</ul>`;
+        section.addEventListener('click', () => selectCard(section));
         canvas.appendChild(section);
+        cards.push(section);
       });
+      updateCounter();
+    });
+    function selectCard(card) {
+      cards.forEach(item => item.classList.remove('selected'));
+      card.classList.add('selected');
+      document.getElementById('detail').textContent = `${card.querySelector('h2').textContent}: ${card.querySelectorAll('li').length} elementos documentados.`;
+    }
+    function updateCounter() {
+      const visible = cards.filter(card => !card.classList.contains('dimmed')).length;
+      document.getElementById('counter').textContent = `${visible} de ${cards.length} bloques visibles`;
+    }
+    document.getElementById('searchInput').addEventListener('input', event => {
+      const term = event.target.value.toLowerCase().trim();
+      cards.forEach(card => { card.classList.toggle('dimmed', term && !card.textContent.toLowerCase().includes(term)); });
+      updateCounter();
+    });
+    document.querySelectorAll('.viewButton').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('.viewButton').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      const group = viewGroups[button.dataset.view];
+      cards.forEach(card => card.classList.toggle('dimmed', button.dataset.view !== 'all' && !group.includes(card.dataset.key)));
+      updateCounter();
+    }));
+    document.getElementById('themeButton').addEventListener('click', event => {
+      document.body.classList.toggle('dark');
+      event.target.textContent = document.body.classList.contains('dark') ? 'Modo claro' : 'Modo oscuro';
+    });
+    document.getElementById('presentButton').addEventListener('click', event => {
+      document.body.classList.toggle('presentation');
+      event.target.textContent = document.body.classList.contains('presentation') ? 'Salir de presentar' : 'Presentar';
+    });
+    document.getElementById('downloadButton').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(new Blob([JSON.stringify(model, null, 2)], { type:'application/json' }));
+      link.download = 'modelo-canvas-trello.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
     });
   </script>
 </body>
