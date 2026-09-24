@@ -24,6 +24,7 @@ La practica incluye el prompt, el modelo Canvas estructurado y una vista interac
 
 El diagrama interactivo de arquitectura se encuentra en:
 
+- [README documentado de la practica 02](practica02/README.md)
 - [practica02/artifacts/mobile-architecture.html](practica02/artifacts/mobile-architecture.html)
 - [practica02/artifacts/mobile-architecture.json](practica02/artifacts/mobile-architecture.json)
 - [practica02/artifacts/mobile-architecture.delivery.json](practica02/artifacts/mobile-architecture.delivery.json)
