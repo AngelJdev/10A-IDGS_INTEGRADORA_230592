@@ -31,8 +31,12 @@ El diagrama interactivo de arquitectura se encuentra en:
 
 Abre el archivo en un navegador para revisar los componentes, limites de confianza y flujos de autenticacion, datos, servicios externos y desarrollo.
 
-## Vista web interactiva
+## Vistas web interactivas
 
-El diagrama se publica con GitHub Pages en:
+El modelo Canvas interactivo se publica con GitHub Pages en:
 
-https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica02/
+https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica03/modelo-canvas.html
+
+El diagrama de arquitectura anterior se encuentra en:
+
+https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica02/artifacts/mobile-architecture.html
