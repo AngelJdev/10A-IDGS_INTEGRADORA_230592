@@ -1,8 +1,8 @@
-name: Deploy interactive architecture
+name: Deploy interactive models
 
 on:
   push:
-    branches: [practica02]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
