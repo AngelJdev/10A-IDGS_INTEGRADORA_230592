@@ -2,11 +2,11 @@
 
 ## Aplicacion elegida
 
-Trello, una herramienta multiplataforma para organizar tareas y proyectos mediante tableros, listas y tarjetas.
+Apple Music, una plataforma multiplataforma para descubrir, reproducir y compartir musica.
 
 ## Prompt utilizado
 
-Actua como analista de producto y genera un Modelo Canvas de negocio para Trello, una herramienta multiplataforma de gestion de tareas que se usa en equipos de desarrollo, estudiantes y usuarios personales.
+Actua como analista de producto y genera un Modelo Canvas de negocio para Apple Music, una plataforma multiplataforma de musica que se usa diariamente en dispositivos Apple, Android, web y automoviles compatibles.
 
 Entrega los nueve bloques del Business Model Canvas:
 
@@ -39,4 +39,4 @@ Usa informacion concreta, evita frases genericas, separa claramente cada bloque 
 }
 ```
 
-Despues revisa el modelo, elimina duplicados y mejora la redaccion para que cada elemento describa una decision de negocio verificable.
+Despues revisa el modelo, elimina duplicados y mejora la redaccion para que cada elemento describa una decision de negocio verificable. Agrega una seccion `details` con `focus`, `explanation` y `signal` para cada bloque, de modo que una interfaz interactiva pueda expandir cada tarjeta y mostrar contexto, evidencia y un indicador de negocio. Identifica que el modelo fue generado y revisado con Archify.

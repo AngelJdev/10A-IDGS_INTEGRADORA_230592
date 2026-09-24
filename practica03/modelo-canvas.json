@@ -1,64 +1,114 @@
 {
-  "application": "Trello",
-  "description": "Modelo Canvas de una herramienta multiplataforma para organizar tareas y proyectos.",
+  "application": "Apple Music",
+  "description": "Modelo Canvas de una plataforma multiplataforma para descubrir, reproducir y compartir musica.",
   "canvas": {
     "customerSegments": [
-      "Equipos de desarrollo de software",
-      "Pequenas empresas y equipos remotos",
-      "Estudiantes y docentes",
-      "Usuarios personales que organizan actividades"
+      "Personas que escuchan musica todos los dias",
+      "Usuarios de iPhone, iPad, Mac, Apple Watch y CarPlay",
+      "Familias que comparten una suscripcion",
+      "Artistas, sellos y creadores de contenido musical"
     ],
     "valuePropositions": [
-      "Organizacion visual de tareas mediante tableros, listas y tarjetas",
-      "Colaboracion en tiempo real desde web y dispositivos moviles",
-      "Automatizacion de tareas repetitivas sin configuracion compleja",
-      "Integracion con herramientas de comunicacion y desarrollo"
+      "Catalogo amplio de musica, videoclips, radio y contenido exclusivo",
+      "Recomendaciones personalizadas a partir del historial y los gustos",
+      "Experiencia continua entre dispositivos y reproduccion sin conexion",
+      "Integracion con Siri, CarPlay, Apple Watch y el ecosistema Apple"
     ],
     "channels": [
-      "Aplicacion web",
-      "Aplicaciones para iOS y Android",
-      "Sitio oficial y contenido digital",
-      "Integraciones y marketplace de extensiones"
+      "Aplicaciones para iPhone, iPad, Mac, Apple Watch y Apple TV",
+      "CarPlay, altavoces compatibles y dispositivos Android",
+      "App Store, sitio web, campanas de Apple y redes sociales",
+      "Integracion con Siri, Shazam y servicios del ecosistema"
     ],
     "customerRelationships": [
-      "Autoservicio guiado dentro de la aplicacion",
-      "Centro de ayuda y documentacion",
-      "Soporte para clientes de planes empresariales",
-      "Comunidad y tutoriales de productividad"
+      "Descubrimiento guiado con playlists, estaciones y recomendaciones",
+      "Personalizacion mediante favoritos, biblioteca y escuchar ahora",
+      "Soporte de Apple y ayuda contextual dentro de la aplicacion",
+      "Experiencias compartidas con letras, Replay y perfiles de artistas"
     ],
     "revenueStreams": [
-      "Planes premium por usuario y mes",
-      "Planes empresariales con administracion avanzada",
-      "Funciones adicionales para equipos grandes"
+      "Suscripciones individuales, familiares y para estudiantes",
+      "Prueba gratuita y conversion dentro del ecosistema Apple",
+      "Paquetes de servicios mediante Apple One",
+      "Valor indirecto para la venta y permanencia de dispositivos Apple"
     ],
     "keyResources": [
-      "Plataforma web y aplicaciones moviles",
-      "Infraestructura de almacenamiento y sincronizacion",
-      "Equipo de producto, ingenieria y soporte",
-      "Marca, datos de uso y catalogo de integraciones"
+      "Catalogo licenciado, metadatos, letras y contenido editorial",
+      "Aplicaciones, algoritmos de recomendacion e infraestructura de audio",
+      "Marca Apple, datos de escucha y acuerdos con artistas y sellos",
+      "Equipo de ingenieria, curaduria, soporte y derechos musicales"
     ],
     "keyActivities": [
-      "Desarrollo y mantenimiento de la plataforma",
-      "Sincronizacion segura de tableros y archivos",
-      "Mejora de la experiencia de usuario",
-      "Ventas, marketing y atencion al cliente"
+      "Licenciar, organizar y actualizar el catalogo musical",
+      "Desarrollar recomendaciones, busqueda, audio espacial y Replay",
+      "Distribuir contenido editorial, radio, playlists y estrenos",
+      "Mantener aplicaciones, pagos, privacidad y soporte multiplataforma"
     ],
     "keyPartners": [
-      "Proveedores de nube y servicios de autenticacion",
-      "Plataformas integradas como Slack, Jira y Google Drive",
-      "Distribuidores de aplicaciones moviles",
-      "Clientes empresariales y comunidades de productividad"
+      "Artistas, sellos discograficos, editoriales y distribuidores",
+      "Proveedores de derechos, letras, metadatos y reconocimiento musical",
+      "Fabricantes y plataformas compatibles con CarPlay y Android",
+      "Operadores de pago, telecomunicaciones y socios de Apple One"
     ],
     "costStructure": [
-      "Infraestructura de nube, almacenamiento y transferencia",
-      "Sueldos de ingenieria, producto, ventas y soporte",
-      "Seguridad, cumplimiento y monitoreo",
-      "Marketing, distribucion y comisiones de plataformas"
+      "Regalias, licencias y pagos a artistas, sellos y editoriales",
+      "Infraestructura de audio, almacenamiento, streaming y analitica",
+      "Ingenieria, curaduria editorial, soporte y operaciones",
+      "Marketing, acuerdos de distribucion, privacidad y cumplimiento"
     ]
+  },
+  "details": {
+    "customerSegments": {
+      "focus": "Quien encuentra valor en Apple Music",
+      "explanation": "El segmento principal son personas que escuchan musica con frecuencia y esperan una experiencia personalizada. El ecosistema tambien incorpora familias, estudiantes, conductores y artistas como participantes con necesidades distintas.",
+      "signal": "Retencion mensual, horas reproducidas y cuentas familiares activas"
+    },
+    "valuePropositions": {
+      "focus": "Una experiencia musical que acompana al usuario",
+      "explanation": "Apple Music combina catalogo, curaduria y recomendaciones con una experiencia consistente entre dispositivos. La propuesta se vuelve mas fuerte cuando el usuario puede pasar del telefono al auto o al reloj sin perder su biblioteca.",
+      "signal": "Conversion a suscripcion, reproducciones recurrentes y uso entre dispositivos"
+    },
+    "channels": {
+      "focus": "El ecosistema es el principal canal de distribucion",
+      "explanation": "La aplicacion llega al usuario desde los dispositivos Apple, la App Store y superficies como CarPlay o Siri. La presencia en Android y la web amplia el alcance sin romper la experiencia central.",
+      "signal": "Instalaciones, activaciones de prueba y sesiones iniciadas por dispositivo"
+    },
+    "customerRelationships": {
+      "focus": "La relacion se construye con descubrimiento y habito",
+      "explanation": "Playlists personalizadas, escuchar ahora, favoritos y Replay convierten el historial del usuario en una relacion continua. El soporte de Apple resuelve problemas cuando la experiencia de autoservicio no es suficiente.",
+      "signal": "Frecuencia semanal, guardados en biblioteca y uso de recomendaciones"
+    },
+    "revenueStreams": {
+      "focus": "La suscripcion financia el acceso recurrente",
+      "explanation": "El ingreso principal llega de planes individuales, familiares y estudiantiles. Apple One agrega valor al agrupar servicios, mientras que Apple Music tambien refuerza la permanencia del usuario dentro del ecosistema.",
+      "signal": "Ingresos recurrentes, tasa de renovacion y conversion de pruebas"
+    },
+    "keyResources": {
+      "focus": "Catalogo, tecnologia y confianza de marca",
+      "explanation": "La plataforma depende de derechos musicales, metadatos, algoritmos, aplicaciones y una infraestructura capaz de entregar audio de forma estable. La marca Apple reduce friccion y facilita la adopcion.",
+      "signal": "Disponibilidad del catalogo, calidad de streaming y precision de recomendaciones"
+    },
+    "keyActivities": {
+      "focus": "Mantener el catalogo y mejorar el descubrimiento",
+      "explanation": "Las actividades clave mezclan negociacion de derechos, curaduria editorial e ingenieria. Cada mejora en busqueda, audio espacial o recomendaciones debe traducirse en mas escucha y mayor permanencia.",
+      "signal": "Nuevos lanzamientos incorporados, disponibilidad del servicio y satisfaccion"
+    },
+    "keyPartners": {
+      "focus": "La musica requiere una red de socios amplia",
+      "explanation": "Artistas, sellos, editoriales, proveedores de letras y fabricantes compatibles hacen posible la propuesta. Los acuerdos determinan que contenido puede ofrecerse, en que paises y bajo que condiciones.",
+      "signal": "Cobertura de derechos, estrenos exclusivos y dispositivos compatibles"
+    },
+    "costStructure": {
+      "focus": "Los derechos musicales son el costo dominante",
+      "explanation": "Ademas de regalias y licencias, la plataforma sostiene costos de streaming, ingenieria, curaduria, soporte, privacidad y distribucion. El modelo necesita suficientes suscriptores activos para cubrir estos costos recurrentes.",
+      "signal": "Costo por usuario activo, margen de suscripcion y disponibilidad del servicio"
+    }
   },
   "review": {
     "duplicatesRemoved": true,
     "languageImproved": true,
-    "reviewedBlocks": 9
+    "reviewedBlocks": 9,
+    "generatedWith": "Archify",
+    "interactiveDetails": true
   }
 }

@@ -34,14 +34,13 @@ La aplicacion movil se organiza en cuatro areas principales:
 - Al seleccionar un cuadro se resalta el componente y se muestra una explicacion de su funcion.
 - El modelo puede consultarse directamente desde GitHub Pages sin instalar dependencias.
 
-## Entregables
+## Archivos de soporte
 
-- [Modelo de arquitectura interactivo](https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica02/artifacts/mobile-architecture.html)
-- [Archivo HTML del modelo](artifacts/mobile-architecture.html)
-- [Modelo estructurado en JSON](artifacts/mobile-architecture.json)
-- [Datos de entrega](artifacts/mobile-architecture.delivery.json)
-- [Verificacion visual](artifacts/mobile-architecture.visual-check.json)
-- [Reporte de evidencias](Reporte.pdf)
+- `artifacts/mobile-architecture.html`: implementacion del modelo interactivo.
+- `artifacts/mobile-architecture.json`: estructura del diagrama.
+- `artifacts/mobile-architecture.delivery.json`: metadatos de entrega.
+- `artifacts/mobile-architecture.visual-check.json`: comprobaciones visuales.
+- `Reporte.pdf`: documento de evidencias.
 
 ## Componentes documentados
 
@@ -71,6 +70,6 @@ El archivo de entrega y las verificaciones visuales respaldan la publicacion del
 - Las capturas PNG muestran el resultado en resoluciones de escritorio y temas claro y oscuro.
 - `Reporte.pdf` contiene el documento de evidencias de la practica.
 
-## Consulta interactiva
+## Interactivo
 
-Abre el [modelo interactivo en GitHub Pages](https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica02/artifacts/mobile-architecture.html) para explorar la arquitectura directamente en el navegador.
+https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica02/artifacts/mobile-architecture.html

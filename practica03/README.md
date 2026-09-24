@@ -1,27 +1,34 @@
-# Practica 03 - Modelo Canvas con Archify
+# Practica 03 - Modelo Canvas de Apple Music
 
 ## Objetivo
 
-Crear, revisar y documentar un Modelo Canvas de negocio para una herramienta multiplataforma de uso cotidiano.
+Crear, revisar y documentar un Modelo Canvas de negocio para una aplicacion multiplataforma de uso cotidiano.
 
 ## Aplicacion seleccionada
 
-**Trello**, plataforma para organizar tareas y proyectos mediante tableros, listas y tarjetas.
+**Apple Music**, plataforma multiplataforma para descubrir, reproducir y compartir musica.
 
-## Entregables
+## Evidencia visual
 
-- [Prompt utilizado](prompt.md)
-- [Modelo Canvas estructurado](modelo-canvas.json)
-- [Modelo Canvas interactivo](modelo-canvas.html)
+![Modelo Canvas interactivo de Apple Music](canvas.png)
+
+La vista presenta los nueve bloques del Modelo Canvas, busqueda, filtros por flujo y tarjetas con informacion detallada. La interfaz usa una paleta inspirada en Apple Music, modo claro y oscuro, y un fondo animado suave.
 
 ## Actividades cubiertas
 
-1. Se eligio Trello como aplicacion multiplataforma.
+1. Se eligio Apple Music como aplicacion multiplataforma de uso cotidiano.
 2. Se estructuro el prompt para generar los nueve bloques del Canvas.
-3. Se reviso el modelo y se eliminaron duplicados.
-4. Se mejoro la redaccion para hacer cada punto verificable.
-5. Se documentaron el prompt y el resultado en el repositorio.
+3. Se reviso el modelo, se eliminaron duplicados y se mejoro la redaccion.
+4. Se agregaron senales de negocio para hacer verificable cada bloque.
+5. Se implemento una vista interactiva con busqueda, filtros y detalle expandible.
+6. Se documentaron el prompt, el modelo estructurado y la evidencia visual en el repositorio.
+
+## Archivos de soporte
+
+- `prompt.md`: instrucciones utilizadas para generar el modelo.
+- `modelo-canvas.json`: estructura de los nueve bloques y sus detalles.
+- `modelo-canvas.html`: implementacion de la vista interactiva.
 
 ## Interactivo
 
-https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/
+https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/practica03/modelo-canvas.html

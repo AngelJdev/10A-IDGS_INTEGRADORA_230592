@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modelo Canvas - Trello</title>
+  <title>Modelo Canvas - Apple Music</title>
   <style>
-    :root { --ink:#17212b; --muted:#53616d; --paper:#f4f0e8; --card:#fffdf8; --blue:#20639b; --teal:#16817a; --gold:#e4a11b; --line:#d8d1c5; }
-    body.dark { --ink:#e9eef5; --muted:#a7b5c4; --paper:#07111f; --card:#0d1b2d; --line:#243b55; }
+    :root { --ink:#1d1d1f; --muted:#6e6e73; --paper:#fff; --card:rgba(255,255,255,.88); --blue:#fa243c; --teal:#e51b3e; --gold:#ff6674; --rose:#c91035; --apple-red:#fa243c; --line:#ececef; }
+    body.dark { --ink:#f5f5f7; --muted:#c7c7cc; --paper:#171417; --card:rgba(37,31,35,.86); --line:#4a3b41; }
     * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.45 Georgia, serif; transition:background .25s,color .25s; }
-    header { max-width:1200px; margin:auto; padding:44px 24px 24px; border-bottom:3px solid var(--ink); }
-    .eyebrow { color:var(--blue); font:700 12px/1.2 Arial, sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
+    body { position:relative; isolation:isolate; overflow-x:hidden; margin:0; color:var(--ink); background:var(--paper); font:16px/1.45 Georgia, serif; transition:background .25s,color .25s; }
+    /* Brillos abstractos, inspirados en el ambiente animado de las letras de Apple Music. */
+    body::before, body::after { content:""; position:fixed; z-index:-1; width:66vmax; height:66vmax; border-radius:45% 55% 62% 38%; pointer-events:none; filter:blur(56px); opacity:.34; }
+    body::before { top:-36vmax; left:-24vmax; background:radial-gradient(circle at 60% 60%, #ff183f 0 13%, #ff8899 35%, transparent 68%); animation:musicGlow 11s ease-in-out infinite alternate; }
+    body::after { right:-30vmax; bottom:-43vmax; background:radial-gradient(circle at 35% 35%, #ff3454 0 12%, #ff99a9 36%, transparent 68%); animation:musicGlow 14s ease-in-out infinite alternate-reverse; }
+    body.dark::before, body.dark::after { opacity:.42; }
+    header { position:relative; max-width:1200px; margin:auto; min-height:210px; padding:44px 270px 24px 24px; border-bottom:2px solid color-mix(in srgb, var(--apple-red) 52%, var(--line)); }
+    .brand-logo { position:absolute; top:68px; right:24px; width:min(230px, 25vw); height:auto; margin:0; filter:drop-shadow(0 8px 13px rgba(250,36,60,.12)); }
+    body.dark .brand-logo { filter:invert(1) drop-shadow(0 8px 13px rgba(250,36,60,.22)); }
+    .eyebrow { color:var(--apple-red); font:700 12px/1.2 Arial, sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
     h1 { margin:8px 0 4px; font-size:clamp(2rem,5vw,4rem); line-height:1; }
     header p { max-width:680px; margin:14px 0 0; color:var(--muted); font:16px/1.5 Arial, sans-serif; }
     .toolbar { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
-    button, input { border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--ink); padding:10px 13px; font:600 13px Arial, sans-serif; }
+    button, input { border:1px solid var(--line); border-radius:12px; background:var(--card); color:var(--ink); padding:10px 13px; font:600 13px Arial, sans-serif; }
     button { cursor:pointer; }
     button:hover, button.active { border-color:var(--teal); box-shadow:0 0 0 2px color-mix(in srgb, var(--teal) 22%, transparent); }
     .toolbar button:first-child { background:var(--ink); color:var(--paper); }
@@ -23,8 +30,8 @@
     .counter { color:var(--muted); font:12px Arial, sans-serif; }
     main { max-width:1200px; margin:28px auto 60px; padding:0 24px; }
     .canvas { display:grid; grid-template-columns:repeat(5, 1fr); grid-template-rows:repeat(2, minmax(220px, auto)); gap:12px; }
-    section { background:var(--card); border:1px solid var(--line); border-top:6px solid var(--blue); padding:18px; box-shadow:5px 5px 0 rgba(23,33,43,.08); cursor:pointer; transition:transform .2s, opacity .2s, box-shadow .2s; }
-    section:hover, section.selected { transform:translateY(-4px); box-shadow:0 10px 24px rgba(23,33,43,.18); }
+    section { background:var(--card); backdrop-filter:blur(14px); border:1px solid var(--line); border-top:6px solid var(--blue); border-radius:16px; padding:18px; box-shadow:0 7px 22px rgba(29,29,31,.08); cursor:pointer; transition:transform .2s, opacity .2s, box-shadow .2s; }
+    section:hover, section.selected { transform:translateY(-3px); box-shadow:0 15px 30px rgba(226,27,45,.16); }
     section.dimmed { opacity:.22; transform:none; }
     section.selected { outline:2px solid var(--teal); }
     section:nth-child(2), section:nth-child(7) { border-top-color:var(--teal); }
@@ -41,20 +48,35 @@
     .channels { grid-column:2; grid-row:2; }
     .costs { grid-column:3 / span 2; grid-row:2; }
     .revenue { grid-column:5; grid-row:2; }
-    .detail { min-height:32px; margin-top:16px; padding:12px 14px; border-left:4px solid var(--teal); color:var(--muted); background:var(--card); font:14px Arial, sans-serif; }
+    .detail { min-height:32px; margin-top:16px; padding:14px 16px; border:1px solid var(--line); border-left:4px solid var(--teal); border-radius:12px; color:var(--muted); background:var(--card); font:14px Arial, sans-serif; }
+    .detail strong { color:var(--ink); }
+    .modal[hidden] { display:none; }
+    .modal { position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; background:rgba(23,21,28,.62); backdrop-filter:blur(6px); animation:fadeIn .2s ease-out; }
+    .modal-card { width:min(680px, 100%); max-height:min(720px, 90vh); overflow:auto; padding:28px; border:1px solid var(--line); border-top:8px solid var(--rose); border-radius:22px; background:var(--card); box-shadow:0 24px 80px rgba(0,0,0,.3); animation:riseIn .24s ease-out; }
+    .modal-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+    .modal h2 { margin:0 0 8px; font-size:clamp(1.35rem, 3vw, 2rem); }
+    .modal-kicker { margin:0 0 20px; color:var(--teal); font:700 11px Arial, sans-serif; letter-spacing:1.2px; text-transform:uppercase; }
+    .modal-copy { color:var(--muted); font:16px/1.65 Arial, sans-serif; }
+    .modal-signal { margin:22px 0 0; padding:14px 16px; border:1px solid color-mix(in srgb, var(--gold) 35%, var(--line)); border-left:4px solid var(--gold); border-radius:12px; background:color-mix(in srgb, var(--gold) 12%, var(--card)); color:var(--ink); font:14px/1.5 Arial, sans-serif; }
+    .closeButton { min-width:42px; padding:8px 12px; border-radius:50%; font-size:22px; line-height:1; }
+    @keyframes musicGlow { from { transform:translate3d(-3%, -2%, 0) rotate(0deg) scale(1); } to { transform:translate3d(8%, 7%, 0) rotate(20deg) scale(1.12); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes riseIn { from { opacity:0; transform:translateY(12px) scale(.98); } to { opacity:1; transform:none; } }
     footer { margin-top:20px; color:var(--muted); font:13px Arial, sans-serif; }
     body.presentation header p, body.presentation footer, body.presentation .controls { display:none; }
     body.presentation header { padding-top:24px; }
     body.presentation main { max-width:1400px; }
-    @media (max-width:800px) { .canvas { grid-template-columns:1fr 1fr; grid-template-rows:auto; } section, .partners, .activities, .value, .relationships, .segments, .resources, .channels, .costs, .revenue { grid-column:auto; grid-row:auto; } .value { grid-column:span 2; } }
+    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; } }
+    @media (max-width:800px) { header { min-height:0; padding-right:24px; } .brand-logo { position:static; width:min(190px, 62vw); height:auto; margin:0 0 22px auto; } .canvas { grid-template-columns:1fr 1fr; grid-template-rows:auto; } section, .partners, .activities, .value, .relationships, .segments, .resources, .channels, .costs, .revenue { grid-column:auto; grid-row:auto; } .value { grid-column:span 2; } }
     @media (max-width:480px) { main, header { padding-left:16px; padding-right:16px; } .canvas { grid-template-columns:1fr; } .value { grid-column:auto; } }
   </style>
 </head>
 <body>
   <header>
-    <div class="eyebrow">Practica 03 · Archify · 10 firmas</div>
-    <h1>Modelo Canvas de Trello</h1>
-    <p>Una lectura de negocio para una herramienta multiplataforma de organizacion de tareas y proyectos.</p>
+    <img class="brand-logo" src="apple-music-transparent-v2.png" alt="Apple Music">
+    <div class="eyebrow">Practica 03 · Angel de Jesus</div>
+    <h1>Modelo Canvas de Apple Music</h1>
+    <p>Una lectura de negocio para una plataforma multiplataforma de descubrimiento, reproduccion y fidelizacion musical.</p>
     <div class="toolbar" aria-label="Controles del modelo">
       <button id="themeButton" type="button">Modo oscuro</button>
       <button id="presentButton" type="button">Presentar</button>
@@ -72,8 +94,21 @@
       <span class="counter" id="counter">Cargando...</span>
     </div>
     <div class="canvas" id="canvas"></div>
-    <div class="detail" id="detail" aria-live="polite">Selecciona un bloque para explorar sus elementos.</div>
-    <footer>Modelo revisado: nueve bloques, duplicados eliminados y redaccion mejorada.</footer>
+    <div class="modal" id="detailModal" hidden>
+      <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+          <div>
+            <h2 id="modalTitle"></h2>
+          </div>
+          <button class="closeButton" id="closeModalButton" type="button" aria-label="Cerrar detalle" title="Cerrar">&times;</button>
+        </div>
+        <p class="modal-copy" id="modalFocus"></p>
+        <p class="modal-copy" id="modalExplanation"></p>
+        <div class="modal-signal"><strong>Señal de negocio</strong><br><span id="modalSignal"></span></div>
+      </article>
+    </div>
+    <div class="detail" id="detail" aria-live="polite"><strong>Explora el modelo</strong>Selecciona una tarjeta para abrir su informacion detallada.</div>
+    <footer>Modelo revisado con Archify: nueve bloques, evidencia de negocio y detalles expandibles.</footer>
   </main>
   <script>
     const labels = {
@@ -92,8 +127,12 @@
         const section = document.createElement('section');
         section.className = className;
         section.dataset.key = key;
+        section.tabIndex = 0;
+        section.setAttribute('role', 'button');
+        section.setAttribute('aria-expanded', 'false');
         section.innerHTML = `<h2>${title}</h2><ul>${model.canvas[key].map(item => `<li>${item}</li>`).join('')}</ul>`;
         section.addEventListener('click', () => selectCard(section));
+        section.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectCard(section); } });
         canvas.appendChild(section);
         cards.push(section);
       });
@@ -102,8 +141,16 @@
     function selectCard(card) {
       cards.forEach(item => item.classList.remove('selected'));
       card.classList.add('selected');
-      document.getElementById('detail').textContent = `${card.querySelector('h2').textContent}: ${card.querySelectorAll('li').length} elementos documentados.`;
+      const data = model.details[card.dataset.key];
+      document.getElementById('modalTitle').textContent = card.querySelector('h2').textContent;
+      document.getElementById('modalFocus').textContent = data.focus;
+      document.getElementById('modalExplanation').textContent = data.explanation;
+      document.getElementById('modalSignal').textContent = data.signal;
+      document.getElementById('detailModal').hidden = false;
+      document.getElementById('closeModalButton').focus();
+      document.getElementById('detail').innerHTML = `<strong>${card.querySelector('h2').textContent}</strong>${data.explanation} <b>Indicador:</b> ${data.signal}`;
     }
+    function closeModal() { document.getElementById('detailModal').hidden = true; cards.forEach(item => item.classList.remove('selected')); }
     function updateCounter() {
       const visible = cards.filter(card => !card.classList.contains('dimmed')).length;
       document.getElementById('counter').textContent = `${visible} de ${cards.length} bloques visibles`;
@@ -131,10 +178,13 @@
     document.getElementById('downloadButton').addEventListener('click', () => {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(new Blob([JSON.stringify(model, null, 2)], { type:'application/json' }));
-      link.download = 'modelo-canvas-trello.json';
+      link.download = 'modelo-canvas-apple-music.json';
       link.click();
       URL.revokeObjectURL(link.href);
     });
+    document.getElementById('closeModalButton').addEventListener('click', closeModal);
+    document.getElementById('detailModal').addEventListener('click', event => { if (event.target.id === 'detailModal') closeModal(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && !document.getElementById('detailModal').hidden) closeModal(); });
   </script>
 </body>
 </html>
