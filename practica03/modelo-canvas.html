@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modelo Canvas - Trello</title>
+  <style>
+    :root { --ink:#17212b; --muted:#53616d; --paper:#f4f0e8; --card:#fffdf8; --blue:#20639b; --teal:#16817a; --gold:#e4a11b; --line:#d8d1c5; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.45 Georgia, serif; }
+    header { max-width:1200px; margin:auto; padding:44px 24px 24px; border-bottom:3px solid var(--ink); }
+    .eyebrow { color:var(--blue); font:700 12px/1.2 Arial, sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
+    h1 { margin:8px 0 4px; font-size:clamp(2rem,5vw,4rem); line-height:1; }
+    header p { max-width:680px; margin:14px 0 0; color:var(--muted); font:16px/1.5 Arial, sans-serif; }
+    main { max-width:1200px; margin:28px auto 60px; padding:0 24px; }
+    .canvas { display:grid; grid-template-columns:repeat(5, 1fr); grid-template-rows:repeat(2, minmax(220px, auto)); gap:12px; }
+    section { background:var(--card); border:1px solid var(--line); border-top:6px solid var(--blue); padding:18px; box-shadow:5px 5px 0 rgba(23,33,43,.08); }
+    section:nth-child(2), section:nth-child(7) { border-top-color:var(--teal); }
+    section:nth-child(3), section:nth-child(8) { border-top-color:var(--gold); }
+    h2 { margin:0 0 13px; font:700 17px/1.15 Arial, sans-serif; }
+    ul { padding-left:20px; margin:0; color:var(--muted); }
+    li { margin:0 0 9px; }
+    .partners { grid-column:1; grid-row:1; }
+    .activities { grid-column:2; grid-row:1; }
+    .value { grid-column:3; grid-row:1 / span 2; }
+    .relationships { grid-column:4; grid-row:1; }
+    .segments { grid-column:5; grid-row:1; }
+    .resources { grid-column:1; grid-row:2; }
+    .channels { grid-column:2; grid-row:2; }
+    .costs { grid-column:3 / span 2; grid-row:2; }
+    .revenue { grid-column:5; grid-row:2; }
+    footer { margin-top:20px; color:var(--muted); font:13px Arial, sans-serif; }
+    @media (max-width:800px) { .canvas { grid-template-columns:1fr 1fr; grid-template-rows:auto; } section, .partners, .activities, .value, .relationships, .segments, .resources, .channels, .costs, .revenue { grid-column:auto; grid-row:auto; } .value { grid-column:span 2; } }
+    @media (max-width:480px) { main, header { padding-left:16px; padding-right:16px; } .canvas { grid-template-columns:1fr; } .value { grid-column:auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Practica 03 · Archify · 10 firmas</div>
+    <h1>Modelo Canvas de Trello</h1>
+    <p>Una lectura de negocio para una herramienta multiplataforma de organizacion de tareas y proyectos.</p>
+  </header>
+  <main>
+    <div class="canvas" id="canvas"></div>
+    <footer>Modelo revisado: nueve bloques, duplicados eliminados y redaccion mejorada.</footer>
+  </main>
+  <script>
+    const labels = {
+      keyPartners: ['Socios clave', 'partners'], keyActivities: ['Actividades clave', 'activities'],
+      valuePropositions: ['Propuesta de valor', 'value'], customerRelationships: ['Relaciones con clientes', 'relationships'],
+      customerSegments: ['Segmentos de clientes', 'segments'], keyResources: ['Recursos clave', 'resources'],
+      channels: ['Canales', 'channels'], costStructure: ['Estructura de costos', 'costs'], revenueStreams: ['Fuentes de ingresos', 'revenue']
+    };
+    fetch('modelo-canvas.json').then(response => response.json()).then(model => {
+      const canvas = document.getElementById('canvas');
+      Object.entries(labels).forEach(([key, [title, className]]) => {
+        const section = document.createElement('section');
+        section.className = className;
+        section.innerHTML = `<h2>${title}</h2><ul>${model.canvas[key].map(item => `<li>${item}</li>`).join('')}</ul>`;
+        canvas.appendChild(section);
+      });
+    });
+  </script>
+</body>
+</html>

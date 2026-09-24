@@ -9,6 +9,16 @@
 | Nombre de la practica | Numero de practica | Potenciador (firmas) | Estado |
 | --- | --- | --- | --- |
 | Arquitectura de la aplicacion movil | 02 | Codex-CLI y Archify | Finalizado |
+| Modelo Canvas de una aplicacion multiplataforma | 03 | Archify (10 firmas) | En proceso |
+
+## Practica 03 - Modelo Canvas
+
+La practica incluye el prompt, el modelo Canvas estructurado y una vista interactiva:
+
+- [README de la practica 03](practica03/README.md)
+- [Prompt utilizado](practica03/prompt.md)
+- [Modelo Canvas en JSON](practica03/modelo-canvas.json)
+- [Modelo Canvas interactivo](practica03/modelo-canvas.html)
 
 ## Arquitectura de la aplicacion movil
 

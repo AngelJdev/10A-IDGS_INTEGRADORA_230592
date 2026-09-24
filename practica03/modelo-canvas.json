@@ -1,0 +1,64 @@
+{
+  "application": "Trello",
+  "description": "Modelo Canvas de una herramienta multiplataforma para organizar tareas y proyectos.",
+  "canvas": {
+    "customerSegments": [
+      "Equipos de desarrollo de software",
+      "Pequenas empresas y equipos remotos",
+      "Estudiantes y docentes",
+      "Usuarios personales que organizan actividades"
+    ],
+    "valuePropositions": [
+      "Organizacion visual de tareas mediante tableros, listas y tarjetas",
+      "Colaboracion en tiempo real desde web y dispositivos moviles",
+      "Automatizacion de tareas repetitivas sin configuracion compleja",
+      "Integracion con herramientas de comunicacion y desarrollo"
+    ],
+    "channels": [
+      "Aplicacion web",
+      "Aplicaciones para iOS y Android",
+      "Sitio oficial y contenido digital",
+      "Integraciones y marketplace de extensiones"
+    ],
+    "customerRelationships": [
+      "Autoservicio guiado dentro de la aplicacion",
+      "Centro de ayuda y documentacion",
+      "Soporte para clientes de planes empresariales",
+      "Comunidad y tutoriales de productividad"
+    ],
+    "revenueStreams": [
+      "Planes premium por usuario y mes",
+      "Planes empresariales con administracion avanzada",
+      "Funciones adicionales para equipos grandes"
+    ],
+    "keyResources": [
+      "Plataforma web y aplicaciones moviles",
+      "Infraestructura de almacenamiento y sincronizacion",
+      "Equipo de producto, ingenieria y soporte",
+      "Marca, datos de uso y catalogo de integraciones"
+    ],
+    "keyActivities": [
+      "Desarrollo y mantenimiento de la plataforma",
+      "Sincronizacion segura de tableros y archivos",
+      "Mejora de la experiencia de usuario",
+      "Ventas, marketing y atencion al cliente"
+    ],
+    "keyPartners": [
+      "Proveedores de nube y servicios de autenticacion",
+      "Plataformas integradas como Slack, Jira y Google Drive",
+      "Distribuidores de aplicaciones moviles",
+      "Clientes empresariales y comunidades de productividad"
+    ],
+    "costStructure": [
+      "Infraestructura de nube, almacenamiento y transferencia",
+      "Sueldos de ingenieria, producto, ventas y soporte",
+      "Seguridad, cumplimiento y monitoreo",
+      "Marketing, distribucion y comisiones de plataformas"
+    ]
+  },
+  "review": {
+    "duplicatesRemoved": true,
+    "languageImproved": true,
+    "reviewedBlocks": 9
+  }
+}
