@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="logo-utxj.png" alt="Logo de la Universidad Tecnologica de Xicotepec de Juarez" width="180">
+	<img src="logo-utxj.png" alt="Logo de la Universidad Tecnologica de Xicotepec de Juarez" width="320">
 </p>
 
 # Practicas Integradora - Desarrollo y Gestion de Software
