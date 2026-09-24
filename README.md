@@ -1,3 +1,7 @@
+<p align="center">
+	<img src="logo-utxj.png" alt="Logo de la Universidad Tecnologica de Xicotepec de Juarez" width="180">
+</p>
+
 # Practicas Integradora - Desarrollo y Gestion de Software
 
 ## Tabla de evidencia
