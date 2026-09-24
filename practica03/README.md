@@ -21,3 +21,7 @@ Crear, revisar y documentar un Modelo Canvas de negocio para una herramienta mul
 3. Se reviso el modelo y se eliminaron duplicados.
 4. Se mejoro la redaccion para hacer cada punto verificable.
 5. Se documentaron el prompt y el resultado en el repositorio.
+
+## Interactivo
+
+https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/
