@@ -18,7 +18,7 @@ La practica incluye el prompt, el modelo Canvas estructurado y una vista interac
 - [README de la practica 03](practica03/README.md)
 - [Prompt utilizado](practica03/prompt.md)
 - [Modelo Canvas en JSON](practica03/modelo-canvas.json)
-- [Modelo Canvas interactivo](practica03/modelo-canvas.html)
+- [Modelo Canvas interactivo](https://angeljdev.github.io/10A-IDGS_INTEGRADORA_230592/)
 
 ## Arquitectura de la aplicacion movil
 
