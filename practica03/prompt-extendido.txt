@@ -1,0 +1,16 @@
+Actúa como desarrollador frontend senior y diseñador UX/UI. Crea una aplicación web de música llamada “Archify”, inspirada únicamente en la experiencia general de Apple Music, pero con identidad visual, textos, componentes y código originales. No copies logotipos ni elementos protegidos.
+
+Construye una interfaz elegante, moderna, accesible y totalmente responsiva para escritorio, tableta y móvil. Usa una estética oscura con acentos degradados en rosa, morado y rojo, buen contraste, tipografía legible y microinteracciones sutiles.
+
+Incluye:
+- Barra lateral con Inicio, Explorar, Biblioteca, Álbumes, Artistas y Listas de reproducción.
+- Encabezado con buscador, perfil de usuario y navegación clara.
+- Página de inicio con saludo, canciones recomendadas, artistas populares, álbumes destacados y listas de reproducción.
+- Tarjetas con portada, título, artista y metadatos, incluyendo estados hover y selección activa.
+- Reproductor fijo en la parte inferior con portada, canción actual, artista, reproducir/pausar, anterior, siguiente, progreso, volumen y opciones adicionales.
+- Diseño adaptable para pantallas pequeñas, menú móvil y componentes reutilizables.
+- Datos locales de ejemplo y portadas genéricas o libres de derechos.
+- Interacciones simuladas para búsqueda, selección de canciones, reproducción y navegación; no implementes autenticación, pagos ni reproducción real.
+- Estados de carga, vacío y error cuando sean necesarios.
+
+Entrega el código completo, limpio y organizado, listo para ejecutarse sin errores. Separa componentes, estilos y datos. Si utilizas un framework, indica las dependencias y los comandos de instalación y ejecución. Explica brevemente la estructura del proyecto y verifica que la interfaz sea accesible mediante teclado.
