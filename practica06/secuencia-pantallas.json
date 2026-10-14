@@ -1,0 +1,171 @@
+{
+  "application": "Apple Music",
+  "practice": 6,
+  "description": "Diagrama conceptual de secuencia de pantallas para dos roles de la plataforma Apple Music.",
+  "roles": [
+    {
+      "id": "listener",
+      "name": "Oyente",
+      "description": "Persona que descubre y reproduce musica y administra su biblioteca."
+    },
+    {
+      "id": "artist",
+      "name": "Artista",
+      "description": "Artista que consulta su presencia, audiencia y lanzamientos en el espacio complementario Apple Music for Artists."
+    }
+  ],
+  "screens": [
+    {
+      "id": "L01",
+      "role": "listener",
+      "title": "Bienvenida",
+      "objective": "Presentar la experiencia y ofrecer acceso al inicio.",
+      "description": "La persona conoce la propuesta musical y elige comenzar o iniciar sesion.",
+      "next": ["L02", "L03"]
+    },
+    {
+      "id": "L02",
+      "role": "listener",
+      "title": "Preferencias musicales",
+      "objective": "Recopilar gustos para personalizar recomendaciones.",
+      "description": "Selecciona generos y artistas de interes antes de entrar al servicio.",
+      "next": ["L03"]
+    },
+    {
+      "id": "L03",
+      "role": "listener",
+      "title": "Acceso a la cuenta",
+      "objective": "Identificar a la persona y recuperar sus preferencias.",
+      "description": "Inicia sesion o continua con una cuenta existente.",
+      "next": ["L04"]
+    },
+    {
+      "id": "L04",
+      "role": "listener",
+      "title": "Inicio",
+      "objective": "Reunir recomendaciones y accesos a las areas principales.",
+      "description": "Muestra contenido recomendado, novedades y navegacion hacia buscar, biblioteca y suscripcion.",
+      "next": ["L05", "L09", "L10"]
+    },
+    {
+      "id": "L05",
+      "role": "listener",
+      "title": "Buscar",
+      "objective": "Permitir localizar musica por artista, album o cancion.",
+      "description": "La persona introduce una consulta y revisa categorias sugeridas.",
+      "next": ["L06"]
+    },
+    {
+      "id": "L06",
+      "role": "listener",
+      "title": "Resultados de busqueda",
+      "objective": "Mostrar coincidencias relevantes y permitir elegir contenido.",
+      "description": "Los resultados se organizan por canciones, albumes y artistas.",
+      "next": ["L07", "L08"]
+    },
+    {
+      "id": "L07",
+      "role": "listener",
+      "title": "Detalle de album",
+      "objective": "Presentar un album y sus opciones de reproduccion y guardado.",
+      "description": "Incluye lista de canciones, artista y acciones de biblioteca.",
+      "next": ["L08", "L09"]
+    },
+    {
+      "id": "L08",
+      "role": "listener",
+      "title": "Reproductor",
+      "objective": "Controlar la reproduccion de la cancion seleccionada.",
+      "description": "Expone controles, progreso y acceso al contenido relacionado.",
+      "next": ["L07", "L09"]
+    },
+    {
+      "id": "L09",
+      "role": "listener",
+      "title": "Biblioteca",
+      "objective": "Consultar el contenido guardado por la persona.",
+      "description": "Organiza canciones, albumes y listas agregadas a la coleccion.",
+      "next": ["L07", "L10"]
+    },
+    {
+      "id": "L10",
+      "role": "listener",
+      "title": "Planes y suscripcion",
+      "objective": "Explicar opciones de acceso al servicio.",
+      "description": "Presenta opciones de plan y permite regresar al inicio sin contratar.",
+      "next": ["L04"]
+    },
+    {
+      "id": "A01",
+      "role": "artist",
+      "title": "Acceso de artista",
+      "objective": "Orientar al artista hacia las herramientas de gestion.",
+      "description": "Entrada conceptual a Apple Music for Artists y su proceso de acceso.",
+      "next": ["A02"]
+    },
+    {
+      "id": "A02",
+      "role": "artist",
+      "title": "Verificacion de artista",
+      "objective": "Confirmar la identidad y relacion con el perfil artistico.",
+      "description": "El artista solicita acceso o consulta el estado de verificacion.",
+      "next": ["A03"]
+    },
+    {
+      "id": "A03",
+      "role": "artist",
+      "title": "Panel del artista",
+      "objective": "Resumir actividad reciente y accesos de gestion.",
+      "description": "Presenta indicadores generales y enlaces a audiencia, catalogo y estadisticas.",
+      "next": ["A04", "A05", "A06"]
+    },
+    {
+      "id": "A04",
+      "role": "artist",
+      "title": "Audiencia",
+      "objective": "Explorar el alcance de la musica entre oyentes.",
+      "description": "Resume tendencias de escucha y distribucion de audiencia.",
+      "next": ["A03", "A06"]
+    },
+    {
+      "id": "A05",
+      "role": "artist",
+      "title": "Catalogo",
+      "objective": "Consultar albumes y canciones asociados al perfil.",
+      "description": "Permite elegir un lanzamiento para revisar sus datos.",
+      "next": ["A07", "A08"]
+    },
+    {
+      "id": "A06",
+      "role": "artist",
+      "title": "Estadisticas",
+      "objective": "Revisar el rendimiento de reproducciones por periodo.",
+      "description": "Muestra indicadores conceptuales para analizar el comportamiento de escucha.",
+      "next": ["A03", "A07"]
+    },
+    {
+      "id": "A07",
+      "role": "artist",
+      "title": "Detalle del lanzamiento",
+      "objective": "Consultar informacion y rendimiento de un lanzamiento.",
+      "description": "Agrupa datos del contenido y accesos a su perfil o estado de entrega.",
+      "next": ["A05", "A08", "A09"]
+    },
+    {
+      "id": "A08",
+      "role": "artist",
+      "title": "Perfil del artista",
+      "objective": "Revisar la presentacion publica del artista.",
+      "description": "Permite gestionar informacion biografica e imagenes del perfil, sujeto a permisos.",
+      "next": ["A03", "A09"]
+    },
+    {
+      "id": "A09",
+      "role": "artist",
+      "title": "Estado del lanzamiento",
+      "objective": "Dar seguimiento a la disponibilidad de un lanzamiento.",
+      "description": "Muestra estados conceptuales de revision, programacion o publicacion.",
+      "next": ["A03", "A07"]
+    }
+  ]
+}

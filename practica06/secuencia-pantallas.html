@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Diagrama interactivo de secuencia de pantallas para dos roles de Apple Music.">
+  <title>Practica 06 - Secuencia de pantallas de Apple Music</title>
+  <style>
+    :root { color-scheme:dark; --bg:#090c15; --panel:#171a25; --line:#343a4c; --text:#f7f7fb; --muted:#b9c0d0; --pink:#fa3856; --purple:#bb83ff; --blue:#388bff; }
+    * { box-sizing:border-box; }
+    body { position:relative; isolation:isolate; margin:0; min-height:100vh; overflow-x:hidden; color:var(--text); background:linear-gradient(145deg,#090b13,#11101a 55%,#090c15); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    body::before, body::after { position:fixed; z-index:-1; width:68vmax; height:68vmax; border-radius:50%; content:""; pointer-events:none; filter:blur(72px); opacity:.22; }
+    body::before { top:-43vmax; left:-25vmax; background:radial-gradient(circle at 58% 58%,#157bff 0 8%,#2358ff 22%,#6443fc 42%,transparent 68%); animation:blueFlow 18s ease-in-out infinite alternate; }
+    body::after { right:-34vmax; bottom:-48vmax; background:radial-gradient(circle at 38% 38%,#23b6ff 0 7%,#156cff 24%,#5e39e8 44%,transparent 70%); animation:blueFlow 22s ease-in-out infinite alternate-reverse; }
+    @keyframes blueFlow { from { transform:translate3d(-2%,0,0) scale(.94) rotate(0deg); } to { transform:translate3d(13%,12%,0) scale(1.12) rotate(18deg); } }
+    header, main, footer { width:min(1200px,100%); margin-inline:auto; padding-inline:24px; }
+    header { padding-top:48px; padding-bottom:24px; }
+    .eyebrow { color:var(--pink); font-size:.76rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:.4rem 0; font-size:clamp(2rem,5vw,3.5rem); letter-spacing:-.05em; line-height:1.05; }
+    header p { max-width:720px; color:var(--muted); }
+    .toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:22px; }
+    button, input { min-height:44px; border:1px solid var(--line); border-radius:12px; background:var(--panel); color:var(--text); font:inherit; }
+    button { padding:9px 14px; cursor:pointer; }
+    button:hover, button:focus-visible, button[aria-pressed="true"] { border-color:var(--pink); outline:2px solid transparent; box-shadow:0 0 0 2px #fa38564a; }
+    input { flex:1 1 240px; padding:9px 14px; }
+    input:focus-visible, button:focus-visible { outline:3px solid var(--purple); outline-offset:2px; }
+    .count { color:var(--muted); font-size:.9rem; }
+    main { padding-top:8px; padding-bottom:32px; }
+    .lanes { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:start; }
+    .lane { min-width:0; padding:18px; border:1px solid #ffffff14; border-radius:20px; background:linear-gradient(145deg,#171a24e8,#11131be8); box-shadow:0 16px 45px #0003; backdrop-filter:blur(14px); }
+    .lane h2 { margin:0 0 14px; font-size:1.2rem; }
+    .lane h2 span { color:var(--muted); font-size:.85rem; font-weight:500; }
+    .screens { display:grid; gap:10px; }
+    .screen { width:100%; padding:14px; text-align:left; border-radius:14px; transition:transform .18s,border-color .18s; }
+    .screen:hover { transform:translateY(-2px); }
+    .screen[hidden], .lane[hidden] { display:none; }
+    .screen.selected { border-color:var(--pink); background:#33202a; }
+    .screen-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .screen-id { color:var(--pink); font-size:.75rem; font-weight:800; letter-spacing:.08em; }
+    .step { color:var(--muted); font-size:.75rem; }
+    .screen strong { display:block; margin:5px 0 3px; font-size:1rem; }
+    .screen em { color:var(--muted); font-size:.86rem; font-style:normal; }
+    .detail { min-height:118px; margin-top:18px; padding:18px 20px; border:1px solid var(--line); border-left:4px solid var(--purple); border-radius:14px; background:var(--panel); }
+    .detail h2 { margin:0 0 6px; font-size:1.1rem; }
+    .detail p { margin:5px 0; color:var(--muted); }
+    .detail strong { color:var(--text); }
+    .empty { grid-column:1/-1; padding:22px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
+    .modal[hidden] { display:none; }
+    .modal { position:fixed; inset:0; z-index:5; display:grid; place-items:center; padding:20px; background:radial-gradient(ellipse at 25% 25%,#1459bb30,transparent 46%),#080a10e8; backdrop-filter:blur(12px); }
+    .modal-card { position:relative; width:min(960px,100%); max-height:min(850px,94vh); overflow:auto; padding:28px; border:1px solid #ffffff1b; border-radius:26px; background:linear-gradient(145deg,#171a25f5,#10121bf5); box-shadow:0 28px 100px #000b,0 0 70px #1679ff12; }
+    .modal-header { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:18px; }
+    .modal-header h2 { margin:4px 0; font-size:clamp(1.35rem,4vw,2rem); line-height:1.15; }
+    .modal-header p { margin:6px 0 0; color:var(--muted); }
+    .modal-close { flex:0 0 44px; padding:0; border-radius:50%; font-size:1.5rem; line-height:1; }
+    .sketch-layout { display:grid; grid-template-columns:minmax(270px,360px) minmax(0,1fr); gap:30px; align-items:center; }
+    .phone { position:relative; width:min(100%,320px); aspect-ratio:0.5; margin:auto; padding:8px; border:1px solid #d9deed8c; border-radius:50px; background:linear-gradient(125deg,#d9dce4 0%,#646a77 7%,#222630 13%,#090b10 49%,#626976 93%,#d7d9e0 100%); box-shadow:inset 0 0 0 1px #ffffff55,0 25px 65px #0009,0 0 45px #357dff20; }
+    .phone::before { position:absolute; z-index:2; top:17px; left:50%; width:92px; height:27px; border:1px solid #282a30; border-radius:999px; background:linear-gradient(180deg,#020307,#090a0e); box-shadow:0 1px 0 #ffffff18,inset 0 1px 3px #000; content:""; transform:translateX(-50%); }
+    .phone::after { position:absolute; top:122px; right:-4px; width:3px; height:78px; border-radius:0 4px 4px 0; background:linear-gradient(#858b98,#272b34,#858b98); box-shadow:0 0 0 1px #090a0e; content:""; }
+    .phone-screen { position:relative; display:flex; height:100%; min-height:0; flex-direction:column; padding:47px 14px 13px; overflow-y:auto; scrollbar-width:none; border:1px solid #ffffff18; border-radius:42px; color:#f7f7fb; background:radial-gradient(ellipse at 50% -5%,#23549a45,transparent 36%),linear-gradient(160deg,#1a1d27,#0d0f15 68%); }
+    .phone-screen::-webkit-scrollbar { display:none; }
+    .phone-status { position:sticky; top:0; z-index:1; display:flex; justify-content:space-between; margin:0 2px 17px; color:#e5e7ee; font-size:.65rem; font-weight:700; }
+    .mock-brand { display:flex; justify-content:space-between; align-items:center; margin-bottom:17px; min-height:25px; color:#f5eff7; font-size:.72rem; font-weight:750; }
+    .mock-logo { display:block; width:118px; max-height:25px; object-fit:contain; filter:brightness(0) invert(1); }
+    .mock-avatar { width:22px; height:22px; border:1px solid #a49baa; border-radius:50%; background:linear-gradient(135deg,#fa3856,#bb83ff); }
+    .mock-kicker { display:block; margin:0 0 5px; color:#ff7085; font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .mock-title { margin:0 0 11px; font-size:1.25rem; line-height:1.15; }
+    .mock-copy { margin:0 0 14px; color:#c3bdc8; font-size:.7rem; line-height:1.45; }
+    .mock-button { display:block; margin:12px 0; padding:10px; border:1px solid #fa3856; border-radius:9px; background:linear-gradient(100deg,#fa3856,#aa315f); color:white; font-size:.7rem; font-weight:750; text-align:center; }
+    .mock-button.secondary { border-color:#4a444f; background:#24212a; color:#e9e3ec; }
+    .mock-field { margin:10px 0; padding:10px; border:1px solid #49434f; border-radius:8px; color:#a9a2ae; background:#19171e; font-size:.65rem; }
+    .mock-chips { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
+    .mock-chip { padding:6px 8px; border:1px solid #514654; border-radius:99px; color:#e9dfea; background:#29222e; font-size:.6rem; }
+    .mock-row { display:flex; align-items:center; gap:9px; padding:8px 0; border-bottom:1px solid #34303a; }
+    .mock-thumb { flex:0 0 38px; width:38px; height:38px; border:1px solid #706071; border-radius:7px; background:linear-gradient(145deg,#fb506a,#792c67 55%,#291e3e); }
+    .mock-thumb.round { border-radius:50%; }
+    .mock-lines { flex:1; min-width:0; }
+    .mock-line { height:6px; margin:5px 0; border-radius:5px; background:#77717e; }
+    .mock-line.short { width:55%; background:#49434f; }
+    .mock-section-title { margin:16px 0 7px; font-size:.75rem; font-weight:750; }
+    .mock-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    .mock-card { min-height:80px; padding:8px; border:1px solid #39343f; border-radius:9px; background:#211e26; }
+    .mock-card .mock-thumb { width:100%; height:48px; margin-bottom:5px; }
+    .mock-card-label { color:#e5dfe8; font-size:.58rem; }
+    .mock-tabs { position:sticky; bottom:-13px; display:flex; justify-content:space-around; gap:4px; margin:auto -14px -13px; padding:12px 4px 7px; border-top:1px solid #ffffff15; color:#bcb5c3; background:#11131bea; font-size:.55rem; backdrop-filter:blur(12px); }
+    .mock-chart { position:relative; height:100px; margin:10px 0; overflow:hidden; border-bottom:1px solid #5a5260; background:repeating-linear-gradient(to bottom,transparent 0 24px,#302c35 25px 26px); }
+    .mock-chart::after { position:absolute; inset:28px 0 8px; content:""; background:linear-gradient(155deg,transparent 0 8%,#fa3856 9% 10%,transparent 11% 25%,#bb83ff 26% 27%,transparent 28% 42%,#fa3856 43% 44%,transparent 45% 61%,#bb83ff 62% 63%,transparent 64%); }
+    .mock-progress { height:5px; margin:14px 0 5px; border-radius:5px; background:linear-gradient(90deg,#fa3856 42%,#5a535d 42%); }
+    .mock-controls { display:flex; justify-content:center; align-items:center; gap:22px; margin:14px 0; font-size:1rem; }
+    .mock-controls .play { display:grid; width:38px; height:38px; place-items:center; border-radius:50%; background:#fa3856; }
+    .mock-profile { width:72px; height:72px; margin:6px auto 12px; border:2px solid #bb83ff; border-radius:50%; background:linear-gradient(135deg,#fa3856,#863d9e 55%,#322442); }
+    .mock-step { display:flex; gap:8px; align-items:center; margin:12px 0; color:#ded8e1; font-size:.64rem; }
+    .mock-step::before { width:13px; height:13px; border:2px solid #bb83ff; border-radius:50%; content:""; }
+    .mock-step.done::before { background:#fa3856; }
+    .sketch-notes { padding:5px 4px; }
+    .sketch-notes h3 { margin:0 0 8px; font-size:1.05rem; }
+    .sketch-notes p { color:var(--muted); }
+    .sketch-notes .route { padding:14px; border:1px solid var(--line); border-radius:12px; background:#211f27; }
+    .sketch-notes .route strong { display:block; margin-bottom:5px; color:#e7d3f5; }
+    body.modal-open { overflow:hidden; }
+    footer { padding-bottom:28px; color:var(--muted); font-size:.85rem; }
+    @media (max-width:760px) { header,main,footer { padding-inline:16px; } header { padding-top:32px; } .lanes { grid-template-columns:1fr; } }
+    @media (max-width:760px) { .sketch-layout { grid-template-columns:minmax(235px,300px) minmax(0,1fr); gap:18px; } .phone { width:min(100%,290px); } }
+    @media (max-width:650px) { .modal { padding:8px; } .modal-card { padding:18px; max-height:98vh; } .sketch-layout { grid-template-columns:1fr; gap:18px; } .phone { width:min(100%,310px); } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Practica 06 · Apple Music</div>
+    <h1>Secuencia de pantallas</h1>
+    <p>Explora dos recorridos conceptuales de la plataforma. Selecciona cualquier recuadro para abrir su tarjeta y ver un sketch general de esa pantalla.</p>
+    <div class="toolbar" aria-label="Filtros del diagrama">
+      <button type="button" data-role="all" aria-pressed="true">Todos los roles</button>
+      <button type="button" data-role="listener" aria-pressed="false">Oyente</button>
+      <button type="button" data-role="artist" aria-pressed="false">Artista</button>
+      <input id="search" type="search" placeholder="Buscar una pantalla..." aria-label="Buscar una pantalla">
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+  </header>
+  <main>
+    <div class="lanes" id="lanes">
+      <section class="lane" data-lane="listener" aria-labelledby="listener-title">
+        <h2 id="listener-title">Oyente <span>10 pantallas</span></h2>
+        <div class="screens">
+          <button class="screen" type="button" data-id="L01" data-title="Bienvenida" data-objective="Presentar la experiencia y ofrecer acceso al inicio." data-next="Preferencias musicales o Acceso a la cuenta">
+            <span class="screen-top"><span class="screen-id">L01</span><span class="step">Inicio · siguiente → L02 / L03</span></span><strong>Bienvenida</strong><em>Entrada y presentacion del servicio</em>
+          </button>
+          <button class="screen" type="button" data-id="L02" data-title="Preferencias musicales" data-objective="Recopilar gustos para personalizar recomendaciones." data-next="Acceso a la cuenta">
+            <span class="screen-top"><span class="screen-id">L02</span><span class="step">L01 → siguiente → L03</span></span><strong>Preferencias musicales</strong><em>Seleccion de generos y artistas de interes</em>
+          </button>
+          <button class="screen" type="button" data-id="L03" data-title="Acceso a la cuenta" data-objective="Identificar a la persona y recuperar sus preferencias." data-next="Inicio">
+            <span class="screen-top"><span class="screen-id">L03</span><span class="step">L01 / L02 → siguiente → L04</span></span><strong>Acceso a la cuenta</strong><em>Inicio de sesion o continuidad de cuenta</em>
+          </button>
+          <button class="screen" type="button" data-id="L04" data-title="Inicio" data-objective="Reunir recomendaciones y accesos a las areas principales." data-next="Buscar, Biblioteca o Planes y suscripcion">
+            <span class="screen-top"><span class="screen-id">L04</span><span class="step">L03 → siguiente → L05 / L09 / L10</span></span><strong>Inicio</strong><em>Recomendaciones, novedades y navegacion</em>
+          </button>
+          <button class="screen" type="button" data-id="L05" data-title="Buscar" data-objective="Permitir localizar musica por artista, album o cancion." data-next="Resultados de busqueda">
+            <span class="screen-top"><span class="screen-id">L05</span><span class="step">L04 → siguiente → L06</span></span><strong>Buscar</strong><em>Consulta por artista, album o cancion</em>
+          </button>
+          <button class="screen" type="button" data-id="L06" data-title="Resultados de busqueda" data-objective="Mostrar coincidencias relevantes y permitir elegir contenido." data-next="Detalle de album o Reproductor">
+            <span class="screen-top"><span class="screen-id">L06</span><span class="step">L05 → siguiente → L07 / L08</span></span><strong>Resultados de busqueda</strong><em>Coincidencias organizadas por tipo de contenido</em>
+          </button>
+          <button class="screen" type="button" data-id="L07" data-title="Detalle de album" data-objective="Presentar un album y sus opciones de reproduccion y guardado." data-next="Reproductor o Biblioteca">
+            <span class="screen-top"><span class="screen-id">L07</span><span class="step">L06 / L08 / L09 → siguiente → L08 / L09</span></span><strong>Detalle de album</strong><em>Lista de canciones, artista y acciones de guardado</em>
+          </button>
+          <button class="screen" type="button" data-id="L08" data-title="Reproductor" data-objective="Controlar la reproduccion de la cancion seleccionada." data-next="Detalle de album o Biblioteca">
+            <span class="screen-top"><span class="screen-id">L08</span><span class="step">L06 / L07 → siguiente → L07 / L09</span></span><strong>Reproductor</strong><em>Controles, progreso y contenido relacionado</em>
+          </button>
+          <button class="screen" type="button" data-id="L09" data-title="Biblioteca" data-objective="Consultar el contenido guardado por la persona." data-next="Detalle de album o Planes y suscripcion">
+            <span class="screen-top"><span class="screen-id">L09</span><span class="step">L04 / L07 / L08 → siguiente → L07 / L10</span></span><strong>Biblioteca</strong><em>Coleccion personal de musica</em>
+          </button>
+          <button class="screen" type="button" data-id="L10" data-title="Planes y suscripcion" data-objective="Explicar opciones de acceso al servicio." data-next="Inicio">
+            <span class="screen-top"><span class="screen-id">L10</span><span class="step">L04 / L09 → siguiente → L04</span></span><strong>Planes y suscripcion</strong><em>Opciones de plan y regreso al inicio</em>
+          </button>
+        </div>
+      </section>
+      <section class="lane" data-lane="artist" aria-labelledby="artist-title">
+        <h2 id="artist-title">Artista <span>9 pantallas</span></h2>
+        <div class="screens">
+          <button class="screen" type="button" data-id="A01" data-title="Acceso de artista" data-objective="Orientar al artista hacia las herramientas de gestion." data-next="Verificacion de artista">
+            <span class="screen-top"><span class="screen-id">A01</span><span class="step">Inicio → siguiente → A02</span></span><strong>Acceso de artista</strong><em>Entrada conceptual a las herramientas para artistas</em>
+          </button>
+          <button class="screen" type="button" data-id="A02" data-title="Verificacion de artista" data-objective="Confirmar la identidad y relacion con el perfil artistico." data-next="Panel del artista">
+            <span class="screen-top"><span class="screen-id">A02</span><span class="step">A01 → siguiente → A03</span></span><strong>Verificacion de artista</strong><em>Solicitud de acceso y estado de verificacion</em>
+          </button>
+          <button class="screen" type="button" data-id="A03" data-title="Panel del artista" data-objective="Resumir actividad reciente y accesos de gestion." data-next="Audiencia, Catalogo o Estadisticas">
+            <span class="screen-top"><span class="screen-id">A03</span><span class="step">A02 / A04 / A06 / A08 / A09 → A04 / A05 / A06</span></span><strong>Panel del artista</strong><em>Resumen y accesos a las areas principales</em>
+          </button>
+          <button class="screen" type="button" data-id="A04" data-title="Audiencia" data-objective="Explorar el alcance de la musica entre oyentes." data-next="Panel del artista o Estadisticas">
+            <span class="screen-top"><span class="screen-id">A04</span><span class="step">A03 → siguiente → A03 / A06</span></span><strong>Audiencia</strong><em>Tendencias de escucha y distribucion de audiencia</em>
+          </button>
+          <button class="screen" type="button" data-id="A05" data-title="Catalogo" data-objective="Consultar albumes y canciones asociados al perfil." data-next="Detalle del lanzamiento o Perfil del artista">
+            <span class="screen-top"><span class="screen-id">A05</span><span class="step">A03 → siguiente → A07 / A08</span></span><strong>Catalogo</strong><em>Lanzamientos vinculados al perfil</em>
+          </button>
+          <button class="screen" type="button" data-id="A06" data-title="Estadisticas" data-objective="Revisar el rendimiento de reproducciones por periodo." data-next="Panel del artista o Detalle del lanzamiento">
+            <span class="screen-top"><span class="screen-id">A06</span><span class="step">A03 / A04 → siguiente → A03 / A07</span></span><strong>Estadisticas</strong><em>Indicadores conceptuales de reproducciones</em>
+          </button>
+          <button class="screen" type="button" data-id="A07" data-title="Detalle del lanzamiento" data-objective="Consultar informacion y rendimiento de un lanzamiento." data-next="Catalogo, Perfil del artista o Estado del lanzamiento">
+            <span class="screen-top"><span class="screen-id">A07</span><span class="step">A05 / A06 / A09 → siguiente → A05 / A08 / A09</span></span><strong>Detalle del lanzamiento</strong><em>Informacion, rendimiento y estado del contenido</em>
+          </button>
+          <button class="screen" type="button" data-id="A08" data-title="Perfil del artista" data-objective="Revisar la presentacion publica del artista." data-next="Panel del artista o Estado del lanzamiento">
+            <span class="screen-top"><span class="screen-id">A08</span><span class="step">A05 / A07 → siguiente → A03 / A09</span></span><strong>Perfil del artista</strong><em>Informacion biografica e imagenes del perfil</em>
+          </button>
+          <button class="screen" type="button" data-id="A09" data-title="Estado del lanzamiento" data-objective="Dar seguimiento a la disponibilidad de un lanzamiento." data-next="Panel del artista o Detalle del lanzamiento">
+            <span class="screen-top"><span class="screen-id">A09</span><span class="step">A07 / A08 → siguiente → A03 / A07</span></span><strong>Estado del lanzamiento</strong><em>Revision, programacion o publicacion</em>
+          </button>
+        </div>
+      </section>
+    </div>
+    <p class="empty" id="empty" hidden>No hay pantallas que coincidan con la busqueda.</p>
+  </main>
+  <footer>Practica 06 · Flujo conceptual original. El recorrido de artista representa una experiencia complementaria de Apple Music for Artists.</footer>
+  <div class="modal" id="screen-modal" hidden>
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-objective">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow" id="modal-eyebrow"></span>
+          <h2 id="modal-title"></h2>
+          <p>Boceto general de interfaz · referencia para el sketch</p>
+        </div>
+        <button class="modal-close" id="modal-close" type="button" aria-label="Cerrar tarjeta">×</button>
+      </div>
+      <div class="sketch-layout">
+        <div class="phone" aria-label="Boceto conceptual en marco tipo iPhone Pro Max">
+          <div class="phone-screen" id="phone-screen"></div>
+        </div>
+        <div class="sketch-notes">
+          <h3>Proposito de la pantalla</h3>
+          <p id="modal-objective"></p>
+          <div class="route"><strong>Siguiente paso del flujo</strong><span id="modal-next"></span></div>
+          <p>Este sketch es una propuesta visual inicial; los bloques representan contenido, controles y navegacion, no una captura oficial.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+    const roleButtons = [...document.querySelectorAll("[data-role]")];
+    const lanes = [...document.querySelectorAll("[data-lane]")];
+    const screens = [...document.querySelectorAll(".screen")];
+    const search = document.querySelector("#search");
+    const count = document.querySelector("#count");
+    const empty = document.querySelector("#empty");
+    const modal = document.querySelector("#screen-modal");
+    const modalCard = modal.querySelector(".modal-card");
+    const modalClose = document.querySelector("#modal-close");
+    const modalEyebrow = document.querySelector("#modal-eyebrow");
+    const modalTitle = document.querySelector("#modal-title");
+    const modalObjective = document.querySelector("#modal-objective");
+    const modalNext = document.querySelector("#modal-next");
+    const phoneScreen = document.querySelector("#phone-screen");
+    let activeRole = "all";
+    let lastFocusedScreen = null;
+
+    const sketches = {
+      L01: { heading: "Tu musica empieza aqui", copy: "Descubre sonidos para cada momento.", sections: ["Bienvenida", "Acceso"], action: "Comenzar", type: "welcome" },
+      L02: { heading: "Que te gusta escuchar?", copy: "Elige algunos estilos para personalizar tu experiencia.", sections: ["Pop", "Rock", "Electronica", "Jazz", "Indie", "Clasica"], action: "Continuar", type: "preferences" },
+      L03: { heading: "Inicia sesion", copy: "Entra para conservar tu musica y preferencias.", sections: ["Correo electronico", "Contrasena"], action: "Continuar con tu cuenta", type: "login" },
+      L04: { heading: "Escuchar ahora", copy: "Una seleccion para ti y tus momentos.", sections: ["Mezcla para hoy", "Nuevos lanzamientos"], action: "Ver todo", type: "home" },
+      L05: { heading: "Buscar musica", copy: "Escribe una cancion, artista o album.", sections: ["Explorar generos", "Lo mas escuchado"], action: "Buscar", type: "search" },
+      L06: { heading: "Resultados", copy: "Coincidencias para tu busqueda.", sections: ["Canciones", "Artistas", "Albumes"], action: "Filtrar resultados", type: "results" },
+      L07: { heading: "Album seleccionado", copy: "Artista · Album · 2026", sections: ["Primera cancion", "Segunda cancion", "Tercera cancion"], action: "Reproducir album", type: "album" },
+      L08: { heading: "Reproduciendo", copy: "Cancion actual · Nombre del artista", sections: ["Anterior", "Reproducir", "Siguiente"], action: "Abrir cola", type: "player" },
+      L09: { heading: "Tu biblioteca", copy: "Tu musica guardada, organizada.", sections: ["Listas", "Albumes", "Artistas", "Canciones"], action: "Ordenar", type: "library" },
+      L10: { heading: "Elige tu plan", copy: "Acceso a musica para ti o tu familia.", sections: ["Individual", "Familiar", "Estudiante"], action: "Ver opciones", type: "plans" },
+      A01: { heading: "Espacio para artistas", copy: "Consulta como se descubre y escucha tu musica.", sections: ["Gestion de perfil", "Datos de audiencia"], action: "Solicitar acceso", type: "artistAccess" },
+      A02: { heading: "Reclama tu perfil", copy: "Busca el perfil asociado a tu proyecto musical.", sections: ["Nombre del artista", "Enlace de lanzamiento"], action: "Enviar solicitud", type: "verify" },
+      A03: { heading: "Resumen del artista", copy: "Actividad reciente de tu catalogo.", sections: ["Oyentes", "Reproducciones", "Lanzamientos"], action: "Ver estadisticas", type: "dashboard" },
+      A04: { heading: "Tu audiencia", copy: "Explora tendencias y ubicaciones de escucha.", sections: ["Oyentes por region", "Ciudades principales"], action: "Cambiar periodo", type: "audience" },
+      A05: { heading: "Catalogo musical", copy: "Lanzamientos asociados a tu perfil.", sections: ["Album reciente", "Sencillo", "EP"], action: "Filtrar catalogo", type: "catalog" },
+      A06: { heading: "Estadisticas", copy: "Compara actividad durante un periodo.", sections: ["Reproducciones", "Oyentes", "Shazams"], action: "Ultimos 30 dias", type: "stats" },
+      A07: { heading: "Detalle del lanzamiento", copy: "Resumen del contenido seleccionado.", sections: ["Datos del lanzamiento", "Tendencia de escucha"], action: "Ver estado", type: "release" },
+      A08: { heading: "Perfil publico", copy: "Revisa como aparece la informacion del artista.", sections: ["Imagen de perfil", "Biografia", "Albumes destacados"], action: "Editar perfil", type: "profile" },
+      A09: { heading: "Estado del lanzamiento", copy: "Seguimiento conceptual de la disponibilidad.", sections: ["Solicitud recibida", "Revision", "Publicado"], action: "Volver al panel", type: "status" }
+    };
+
+    function element(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text) node.textContent = text;
+      return node;
+    }
+
+    function addLine(parent, short = false) {
+      parent.append(element("div", short ? "mock-line short" : "mock-line"));
+    }
+
+    function addRow(parent, label, round = false) {
+      const row = element("div", "mock-row");
+      row.append(element("div", `mock-thumb${round ? " round" : ""}`));
+      const lines = element("div", "mock-lines");
+      addLine(lines);
+      addLine(lines, true);
+      row.append(lines);
+      if (label) row.append(element("span", "mock-chip", label));
+      parent.append(row);
+    }
+
+    function addCards(parent, labels, round = false) {
+      const cards = element("div", "mock-cards");
+      for (const label of labels) {
+        const card = element("div", "mock-card");
+        card.append(element("div", `mock-thumb${round ? " round" : ""}`));
+        card.append(element("div", "mock-card-label", label));
+        cards.append(card);
+      }
+      parent.append(cards);
+    }
+
+    function renderSketch(screen) {
+      const sketch = sketches[screen.dataset.id];
+      const role = screen.closest("[data-lane]").dataset.lane;
+      phoneScreen.replaceChildren();
+      const status = element("div", "phone-status");
+      status.append(element("span", "", "9:41"), element("span", "", "● ● ▰"));
+      phoneScreen.append(status);
+      const brand = element("div", "mock-brand");
+      const logo = element("img", "mock-logo");
+      logo.src = "../practica03/apple-music-transparent-v2.png";
+      logo.alt = "Apple Music";
+      brand.append(logo);
+      brand.append(element("div", "mock-avatar"));
+      phoneScreen.append(brand);
+      phoneScreen.append(element("span", "mock-kicker", role === "artist" ? "Panel de artista" : sketch.type === "welcome" ? "Tu espacio musical" : "Explorar"));
+      phoneScreen.append(element("h3", "mock-title", sketch.heading));
+      phoneScreen.append(element("p", "mock-copy", sketch.copy));
+
+      if (["welcome", "artistAccess"].includes(sketch.type)) {
+        const hero = element("div", "mock-profile");
+        hero.style.width = "132px";
+        hero.style.height = "132px";
+        hero.style.borderRadius = "22px";
+        phoneScreen.append(hero);
+        phoneScreen.append(element("div", "mock-button", sketch.action));
+        phoneScreen.append(element("div", "mock-button secondary", sketch.sections[1]));
+      } else if (["preferences"].includes(sketch.type)) {
+        phoneScreen.append(element("div", "mock-chips"));
+        const chips = phoneScreen.lastElementChild;
+        for (const label of sketch.sections) chips.append(element("span", "mock-chip", label));
+        addCards(phoneScreen, ["Artista sugerido", "Artista sugerido"], true);
+        phoneScreen.append(element("div", "mock-button", sketch.action));
+      } else if (["login", "verify", "search"].includes(sketch.type)) {
+        if (sketch.type === "search") phoneScreen.append(element("div", "mock-field", "⌕  Artista, cancion o album"));
+        else for (const field of sketch.sections) phoneScreen.append(element("div", "mock-field", field));
+        if (sketch.type === "search") addCards(phoneScreen, sketch.sections);
+        phoneScreen.append(element("div", "mock-button", sketch.action));
+      } else if (["home", "library", "catalog"].includes(sketch.type)) {
+        if (sketch.type === "library") {
+          const chips = element("div", "mock-chips");
+          for (const label of sketch.sections) chips.append(element("span", "mock-chip", label));
+          phoneScreen.append(chips);
+          for (const label of ["Guardado recientemente", "Lista personal", "Album favorito"]) addRow(phoneScreen, label);
+        } else {
+          phoneScreen.append(element("div", "mock-section-title", sketch.sections[0]));
+          addCards(phoneScreen, sketch.type === "catalog" ? sketch.sections : ["Selecciones", "Novedades"]);
+          phoneScreen.append(element("div", "mock-section-title", sketch.sections[1] || "Lanzamientos"));
+          addRow(phoneScreen, "Reproduccion destacada");
+        }
+      } else if (["results", "album"].includes(sketch.type)) {
+        if (sketch.type === "results") {
+          const chips = element("div", "mock-chips");
+          for (const label of sketch.sections) chips.append(element("span", "mock-chip", label));
+          phoneScreen.append(chips);
+        } else {
+          addCards(phoneScreen, ["Portada del album"]);
+          phoneScreen.append(element("div", "mock-button", sketch.action));
+        }
+        for (const label of sketch.type === "album" ? sketch.sections : ["Cancion coincidente", "Album coincidente", "Artista coincidente"]) addRow(phoneScreen, label);
+      } else if (sketch.type === "player") {
+        addCards(phoneScreen, ["Arte del album"]);
+        phoneScreen.append(element("div", "mock-section-title", "Cancion actual"));
+        addLine(phoneScreen);
+        addLine(phoneScreen, true);
+        phoneScreen.append(element("div", "mock-progress"));
+        const controls = element("div", "mock-controls");
+        controls.append(element("span", "", "◀"), element("span", "play", "Ⅱ"), element("span", "", "▶"));
+        phoneScreen.append(controls);
+        phoneScreen.append(element("div", "mock-button secondary", sketch.action));
+      } else if (["audience", "stats"].includes(sketch.type)) {
+        const metricCards = element("div", "mock-cards");
+        for (const label of sketch.sections) {
+          const card = element("div", "mock-card");
+          card.append(element("div", "mock-card-label", label));
+          card.append(element("div", "mock-section-title", "12.4 K"));
+          card.append(element("span", "mock-chip", "+ 8%"));
+          metricCards.append(card);
+        }
+        phoneScreen.append(metricCards);
+        phoneScreen.append(element("div", "mock-chart"));
+        phoneScreen.append(element("div", "mock-button secondary", sketch.action));
+      } else if (sketch.type === "dashboard" || sketch.type === "release") {
+        if (sketch.type === "release") addCards(phoneScreen, ["Portada"]);
+        const metrics = element("div", "mock-cards");
+        for (const label of sketch.sections) {
+          const card = element("div", "mock-card");
+          card.append(element("div", "mock-card-label", label));
+          card.append(element("div", "mock-section-title", "8.2 K"));
+          metrics.append(card);
+        }
+        phoneScreen.append(metrics);
+        if (sketch.type === "release") phoneScreen.append(element("div", "mock-chart"));
+        phoneScreen.append(element("div", "mock-button", sketch.action));
+      } else if (sketch.type === "profile") {
+        phoneScreen.append(element("div", "mock-profile"));
+        for (const label of sketch.sections) {
+          phoneScreen.append(element("div", "mock-section-title", label));
+          addLine(phoneScreen);
+          addLine(phoneScreen, true);
+        }
+        phoneScreen.append(element("div", "mock-button", sketch.action));
+      } else if (sketch.type === "status") {
+        for (const [index, label] of sketch.sections.entries()) {
+          const step = element("div", `mock-step${index < 2 ? " done" : ""}`, label);
+          phoneScreen.append(step);
+          if (index < sketch.sections.length - 1) {
+            const line = element("div", "mock-line");
+            line.style.width = "2px";
+            line.style.height = "15px";
+            line.style.margin = "0 5px";
+            phoneScreen.append(line);
+          }
+        }
+        phoneScreen.append(element("div", "mock-button secondary", sketch.action));
+      } else if (sketch.type === "plans") {
+        for (const plan of sketch.sections) {
+          const card = element("div", "mock-card");
+          card.style.margin = "8px 0";
+          card.append(element("div", "mock-card-label", plan));
+          addLine(card);
+          card.append(element("span", "mock-chip", "Plan mensual"));
+          phoneScreen.append(card);
+        }
+        phoneScreen.append(element("div", "mock-button", sketch.action));
+      }
+
+      const tabs = element("div", "mock-tabs");
+      for (const tab of role === "artist" ? ["Panel", "Musica", "Datos", "Perfil"] : ["Inicio", "Buscar", "Radio", "Biblioteca"]) tabs.append(element("span", "", tab));
+      phoneScreen.append(tabs);
+    }
+
+    function closeModal() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      document.body.classList.remove("modal-open");
+      if (lastFocusedScreen) lastFocusedScreen.focus();
+    }
+
+    function filterScreens() {
+      const query = search.value.trim().toLocaleLowerCase("es");
+      let visible = 0;
+      for (const lane of lanes) {
+        const roleMatches = activeRole === "all" || lane.dataset.lane === activeRole;
+        let laneVisible = 0;
+        for (const screen of lane.querySelectorAll(".screen")) {
+          const matches = roleMatches && screen.textContent.toLocaleLowerCase("es").includes(query);
+          screen.hidden = !matches;
+          if (matches) {
+            laneVisible += 1;
+            visible += 1;
+          }
+        }
+        lane.hidden = laneVisible === 0;
+      }
+      count.textContent = `${visible} ${visible === 1 ? "pantalla" : "pantallas"}`;
+      empty.hidden = visible !== 0;
+    }
+
+    for (const button of roleButtons) {
+      button.addEventListener("click", () => {
+        activeRole = button.dataset.role;
+        for (const item of roleButtons) item.setAttribute("aria-pressed", String(item === button));
+        filterScreens();
+      });
+    }
+    search.addEventListener("input", filterScreens);
+
+    for (const screen of screens) {
+      screen.addEventListener("click", () => {
+        for (const item of screens) item.classList.toggle("selected", item === screen);
+        lastFocusedScreen = screen;
+        const role = screen.closest("[data-lane]").dataset.lane;
+        modalEyebrow.textContent = `${role === "artist" ? "Artista" : "Oyente"} · ${screen.dataset.id}`;
+        modalTitle.textContent = screen.dataset.title;
+        modalObjective.textContent = screen.dataset.objective;
+        modalNext.textContent = screen.dataset.next;
+        renderSketch(screen);
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+        modalClose.focus();
+      });
+    }
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", event => {
+      if (modal.hidden) return;
+      if (event.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (event.key === "Tab") {
+        const focusable = [...modalCard.querySelectorAll("button, [href], input, [tabindex]:not([tabindex='-1'])")];
+        if (event.shiftKey && document.activeElement === focusable[0]) {
+          event.preventDefault();
+          focusable[focusable.length - 1].focus();
+        } else if (!event.shiftKey && document.activeElement === focusable[focusable.length - 1]) {
+          event.preventDefault();
+          focusable[0].focus();
+        }
+      }
+    });
+    filterScreens();
+  </script>
+</body>
+</html>
