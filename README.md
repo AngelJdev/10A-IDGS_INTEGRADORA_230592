@@ -10,6 +10,7 @@
 | --- | --- | --- | --- |
 | Arquitectura de la aplicacion movil | 02 | Codex-CLI y Archify | Finalizado |
 | [Modelo Canvas de una aplicacion multiplataforma](practica03/README.md) | 03 | Archify (10 firmas) | Finalizado |
+| [Diagrama de secuencia de pantallas de una aplicacion movil](practica06/README.md) | 06 | Archify (20 firmas) | En desarrollo |
 
 ## Vistas interactivas
 
