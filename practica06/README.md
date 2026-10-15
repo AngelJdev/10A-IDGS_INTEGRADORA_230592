@@ -1,36 +1,63 @@
-# Practica 06 - Diagrama de secuencia de pantallas
+# Práctica 06: Secuencia de pantallas
 
-## Aplicacion elegida
+Propuesta conceptual de experiencia móvil para Apple Music, con recorridos diferenciados para oyentes y artistas. El entregable incluye un diagrama interactivo, bocetos de interfaz y la definición de pantallas y transiciones.
 
-**Apple Music**, la misma aplicacion multiplataforma seleccionada para la Practica 03. Este entregable representa flujos conceptuales originales; no pretende reproducir exactamente las pantallas oficiales de Apple.
+## Vista previa
+
+![Vista principal del diagrama interactivo](image.png)
+
+*Captura de la vista principal. Los diagramas visuales de pantallas aparecen al final de la página interactiva.*
 
 ## Objetivo
 
-Diseñar un diagrama de secuencia de pantallas para una aplicacion movil, con dos roles y al menos 15 pantallas compartidas y especificas. El flujo permite explorar la experiencia de una persona oyente y la de un artista que administra su presencia musical.
+Organizar los puntos de entrada, decisiones y destinos de dos recorridos móviles mediante identificadores y transiciones. La práctica contempla 19 pantallas, por encima del mínimo de 15 solicitado.
 
-## Roles incluidos
+## Aplicación y alcance
 
-- **Oyente:** descubre musica, busca, consulta albumes, reproduce canciones, administra su biblioteca y revisa opciones de suscripcion.
-- **Artista:** consulta su panel, revisa audiencia y catalogo, analiza estadisticas, administra su perfil y da seguimiento a un lanzamiento.
+La aplicación seleccionada es **Apple Music**, la misma que se trabajó en la Práctica 03. Los flujos y wireframes de este proyecto son propuestas originales de diseño y no buscan reproducir con exactitud las pantallas oficiales.
 
-El flujo de artista representa la experiencia complementaria de Apple Music for Artists dentro de la plataforma Apple Music, no una afirmacion de que ambas experiencias pertenezcan a una sola aplicacion movil.
+El recorrido de artista representa una experiencia conceptual complementaria de **Apple Music for Artists**. No implica que la experiencia de gestión artística forme parte de la misma aplicación móvil de Apple Music.
 
-## Entregables
+## Roles y recorridos
 
-- `secuencia-pantallas.html`: diagrama interactivo con filtros por rol, busqueda y tarjetas modales con un sketch general para cada pantalla.
-- `secuencia-pantallas.json`: definicion estructurada de roles, pantallas y transiciones.
-- `prompt.md`: prompt de generacion y criterios para revisar el diagrama.
+### Oyente
 
-Todos los sketches reutilizan el logo de Apple Music guardado en `../practica03/apple-music-transparent-v2.png`. El modal muestra un marco conceptual tipo iPhone Pro Max y el fondo de la pagina tiene un resplandor azul animado; el movimiento se reduce cuando el dispositivo lo solicita.
+Incluye 10 pantallas: bienvenida, preferencias musicales, acceso a la cuenta, inicio, búsqueda, resultados, detalle de álbum, reproductor, biblioteca y planes. El flujo permite descubrir y buscar música, reproducir contenido, guardar elementos y consultar opciones de suscripción.
 
-## Validacion de requisitos
+### Artista
 
-- Aplicacion seleccionada en la Practica 03: Apple Music.
-- Dos roles diferenciados.
-- 19 pantallas en total: 10 para oyente y 9 para artista.
-- Se identifican transiciones y destinos de cada pantalla.
-- La vista interactiva funciona sin dependencias ni instalacion.
+Incluye 9 pantallas: acceso, verificación, panel, audiencia, catálogo, estadísticas, detalle del lanzamiento, perfil y estado del lanzamiento. El recorrido conceptualiza la consulta de actividad y la gestión de presencia musical.
 
-## Vista interactiva
+## Experiencia interactiva
 
-Abre `secuencia-pantallas.html` en un navegador. Usa los filtros para cambiar entre roles y busca por nombre o descripcion. Selecciona cualquier recuadro para abrir su tarjeta con un wireframe movil conceptual, objetivo y siguientes pasos. Cierra con el boton, el fondo o la tecla Esc.
+- Filtra las pantallas por rol y busca por texto.
+- Selecciona una pantalla para abrir su boceto móvil, objetivo y destinos siguientes.
+- Recorre al final de la página las secuencias visuales de cada rol. Incluyen miniaturas de 8 pantallas por recorrido y flechas animadas.
+- Cierra el modal con el botón o con `Esc`.
+- En pantallas pequeñas, cada secuencia tiene desplazamiento horizontal independiente.
+- El fondo y las flechas respetan la preferencia del sistema para reducir movimiento.
+
+## Cómo abrirla
+
+1. Abre [secuencia-pantallas.html](secuencia-pantallas.html) en un navegador.
+2. También puedes abrir la carpeta `practica06` en Visual Studio Code y ejecutar el archivo con Live Server.
+
+No requiere instalación, dependencias ni conexión a un servidor de datos. El logo se carga desde `../practica03/apple-music-transparent-v2.png`, por lo que conviene conservar la estructura de carpetas del proyecto.
+
+## Archivos
+
+| Archivo | Descripción |
+| --- | --- |
+| [secuencia-pantallas.html](secuencia-pantallas.html) | Interfaz interactiva, filtros, búsqueda, modales, wireframes y secuencias visuales. |
+| [secuencia-pantallas.json](secuencia-pantallas.json) | Datos estructurados de los roles, las pantallas y sus destinos. |
+| [prompt.md](prompt.md) | Instrucciones y criterios usados para definir el entregable. |
+| `image.png` | Captura de evidencia de la vista principal. |
+| `../practica03/apple-music-transparent-v2.png` | Logo reutilizado en el encabezado y los bocetos. |
+
+## Modelo de datos
+
+Cada pantalla del JSON contiene un identificador único, el rol asociado, título, objetivo, descripción y una lista de destinos. Los prefijos `L` y `A` identifican respectivamente las pantallas de Oyente y Artista.
+
+## Evidencia
+
+La captura incluida muestra la página principal con el logotipo, los filtros y los primeros elementos de ambos recorridos. La secuencia visual completa se puede revisar al final del archivo HTML.
